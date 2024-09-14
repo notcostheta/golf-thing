@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, MapPin, Users, Clock } from 'lucide-react';
 import eventsData from '../data/events.json';
 import { QRCodeSVG } from 'qrcode.react';
 
-const EventCard = ({ event, isExpanded, toggleExpand }) => {
+const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
   const startTime = event.time_slot ? event.time_slot.split(' - ')[0] : 'TBA';
 
   return (
@@ -13,12 +13,12 @@ const EventCard = ({ event, isExpanded, toggleExpand }) => {
         onClick={toggleExpand}
       >
         <div className="col-span-3">
-          <div className="text-xs text-gray-600">Event</div>
+          <div className={`text-xs text-gray-600 ${!isFirst ? 'hidden' : ''}`}>Event</div>
           <div className="text-lg font-bold text-black">{event.event_name || 'Unnamed Event'}</div>
         </div>
         <div className="col-span-1 flex items-center justify-end">
           <div className="flex flex-col items-end mr-2">
-            <div className="text-xs text-gray-600">Start Time</div>
+            <div className={`text-xs text-gray-600 ${!isFirst ? 'hidden' : ''}`}>Start Time</div>
             <div className="text-lg font-bold text-black">{startTime}</div>
           </div>
           {isExpanded ? <ChevronUp size={24} className="text-black" /> : <ChevronDown size={24} className="text-black" />}
@@ -80,6 +80,7 @@ const EventSchedule = () => {
               event={event}
               isExpanded={expandedEvent === index}
               toggleExpand={() => toggleExpand(index)}
+              isFirst={index === 0}
             />
           ))}
         </div>
