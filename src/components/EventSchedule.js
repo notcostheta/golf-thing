@@ -1,28 +1,33 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, MapPin, Users, Clock } from 'lucide-react';
-import eventsData from '../data/events.json'; // Import the JSON file
-import { QRCodeSVG } from 'qrcode.react'; // Import the QRCodeSVG component
+import eventsData from '../data/events.json';
+import { QRCodeSVG } from 'qrcode.react';
 
 const EventCard = ({ event, isExpanded, toggleExpand }) => {
+  const startTime = event.time_slot ? event.time_slot.split(' - ')[0] : 'TBA';
+
   return (
     <div className="mb-4 border-2 border-black bg-white">
       <div 
-        className="grid grid-cols-3 p-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200"
+        className="grid grid-cols-4 p-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200"
         onClick={toggleExpand}
       >
-        <div className="col-span-2">
+        <div className="col-span-3">
           <div className="text-xs text-gray-600">Event</div>
-          <div className="text-lg font-bold text-black">{event.event_name}</div>
+          <div className="text-lg font-bold text-black">{event.event_name || 'Unnamed Event'}</div>
         </div>
         <div className="col-span-1 flex items-center justify-end">
-          <div className="text-lg font-bold text-black">{event.start_time}</div>
-          {isExpanded ? <ChevronUp size={24} className="text-black ml-2" /> : <ChevronDown size={24} className="text-black ml-2" />}
+          <div className="flex flex-col items-end mr-2">
+            <div className="text-xs text-gray-600">Start Time</div>
+            <div className="text-lg font-bold text-black">{startTime}</div>
+          </div>
+          {isExpanded ? <ChevronUp size={24} className="text-black" /> : <ChevronDown size={24} className="text-black" />}
         </div>
       </div>
       <div className={`p-2 border-t-2 border-black ${isExpanded ? '' : 'hidden'}`}>
-        <p className="flex items-center mb-1 text-gray-800"><MapPin size={16} className="mr-2" /> {event.location}</p>
-        <p className="flex items-center mb-1 text-gray-800"><Clock size={16} className="mr-2" /> {event.time_slot}</p>
-        <p className="flex items-center mb-1 text-gray-800"><Users size={16} className="mr-2" /> {event.category}</p>
+        <p className="flex items-center mb-1 text-gray-800"><Clock size={16} className="mr-2" /> {event.time_slot || 'Time slot TBA'}</p>
+        <p className="flex items-center mb-1 text-gray-800"><MapPin size={16} className="mr-2" /> {event.location || 'Location TBA'}</p>
+        <p className="flex items-center mb-1 text-gray-800"><Users size={16} className="mr-2" /> {event.category || 'Category TBA'}</p>
         {event.priority && (
           <p className="text-sm text-gray-600">Priority: {event.priority}</p>
         )}
