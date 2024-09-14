@@ -46,28 +46,28 @@ const EventSchedule = () => {
   return (
     <div className="max-w-7xl mx-auto bg-white p-4 font-sans">
       <div className="border-2 border-black p-4 bg-white shadow-lg">
-        <div className="md:flex md:justify-between md:items-center">
-          <div>
-            <h1 className="text-2xl md:text-4xl font-bold mb-2 text-black">GOLFFEST 2023</h1>
-            <p className="text-lg md:text-xl mb-4 text-gray-700">A Day of Golf, Networking, and Fun</p>
-          </div>
-          <div className="border-2 border-black p-3">
-            <div 
-              className="flex items-center mb-2 text-gray-800 cursor-pointer"
-              onClick={toggleQRCode}
-            >
-              <div className="border-2 border-black p-2 mr-2">
-                <QRCodeSVG value="https://example.com" size={24} />
-              </div>
-              <p className="flex items-center">
-                <Clock size={16} className="mr-2" /> June 15, 2023
-              </p>
+        <div className="mb-4">
+          <h1 className="text-2xl md:text-4xl font-bold mb-2 text-black">GOLFFEST 2023</h1>
+          <p className="text-lg md:text-xl mb-4 text-gray-700">A Day of Golf, Networking, and Fun</p>
+        </div>
+        
+        <div className="flex flex-row space-x-4 mb-4">
+          <div className="flex-1 border-2 border-black p-3">
+            <div className="flex justify-center items-center cursor-pointer" onClick={toggleQRCode}>
+              <QRCodeSVG value="https://example.com" size={80} />
             </div>
+          </div>
+          
+          <div className="flex-1 border-2 border-black p-3">
+            <p className="flex items-center mb-2 text-gray-800">
+              <Clock size={16} className="mr-2" /> June 15, 2023
+            </p>
             <p className="flex items-center text-gray-800">
               <MapPin size={16} className="mr-2" /> Pine Valley Golf Club
             </p>
           </div>
         </div>
+        
         <div className="border-t-2 border-black pt-4 md:grid md:grid-cols-2 md:gap-4 mt-4">
           {eventsData.map((event, index) => (
             <EventCard
@@ -85,7 +85,7 @@ const EventSchedule = () => {
           onClick={toggleQRCode}
         >
           <div className="bg-white p-4 rounded-lg shadow-lg">
-            <QRCodeSVG value="https://example.com" size={200} />
+            <QRCodeSVG value="https://example.com" size={350} />
           </div>
         </div>
       )}
