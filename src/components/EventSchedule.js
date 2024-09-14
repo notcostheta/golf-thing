@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, MapPin, Users, Clock } from 'lucide-react';
 import eventsData from '../data/events.json'; // Import the JSON file
+import { QRCodeSVG } from 'qrcode.react'; // Import the QRCodeSVG component
 
 const EventCard = ({ event, isExpanded, toggleExpand }) => {
   return (
@@ -10,15 +11,15 @@ const EventCard = ({ event, isExpanded, toggleExpand }) => {
         onClick={toggleExpand}
       >
         <div className="col-span-2">
-          <div className="text-xs text-gray-600">Time</div>
-          <div className="text-lg font-bold text-black">{event.time_slot}</div>
+          <div className="text-xs text-gray-600">Event</div>
+          <div className="text-lg font-bold text-black">{event.event_name}</div>
         </div>
         <div className="col-span-1 flex items-center justify-end">
-          {isExpanded ? <ChevronUp size={24} className="text-black" /> : <ChevronDown size={24} className="text-black" />}
+          <div className="text-lg font-bold text-black">{event.start_time}</div>
+          {isExpanded ? <ChevronUp size={24} className="text-black ml-2" /> : <ChevronDown size={24} className="text-black ml-2" />}
         </div>
       </div>
       <div className={`p-2 border-t-2 border-black ${isExpanded ? '' : 'hidden'}`}>
-        <h3 className="text-lg font-bold mb-2 text-black">{event.event_name}</h3>
         <p className="flex items-center mb-1 text-gray-800"><MapPin size={16} className="mr-2" /> {event.location}</p>
         <p className="flex items-center mb-1 text-gray-800"><Clock size={16} className="mr-2" /> {event.time_slot}</p>
         <p className="flex items-center mb-1 text-gray-800"><Users size={16} className="mr-2" /> {event.category}</p>
@@ -32,9 +33,14 @@ const EventCard = ({ event, isExpanded, toggleExpand }) => {
 
 const EventSchedule = () => {
   const [expandedEvent, setExpandedEvent] = useState(null);
+  const [showQRCode, setShowQRCode] = useState(false);
 
   const toggleExpand = (index) => {
     setExpandedEvent(expandedEvent === index ? null : index);
+  };
+
+  const toggleQRCode = () => {
+    setShowQRCode(!showQRCode);
   };
 
   return (
@@ -46,9 +52,17 @@ const EventSchedule = () => {
             <p className="text-lg md:text-xl mb-4 text-gray-700">A Day of Golf, Networking, and Fun</p>
           </div>
           <div className="border-2 border-black p-3">
-            <p className="flex items-center mb-2 text-gray-800">
-              <Clock size={16} className="mr-2" /> June 15, 2023
-            </p>
+            <div 
+              className="flex items-center mb-2 text-gray-800 cursor-pointer"
+              onClick={toggleQRCode}
+            >
+              <div className="border-2 border-black p-2 mr-2">
+                <QRCodeSVG value="https://example.com" size={24} />
+              </div>
+              <p className="flex items-center">
+                <Clock size={16} className="mr-2" /> June 15, 2023
+              </p>
+            </div>
             <p className="flex items-center text-gray-800">
               <MapPin size={16} className="mr-2" /> Pine Valley Golf Club
             </p>
@@ -65,6 +79,16 @@ const EventSchedule = () => {
           ))}
         </div>
       </div>
+      {showQRCode && (
+        <div 
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={toggleQRCode}
+        >
+          <div className="bg-white p-4 rounded-lg shadow-lg">
+            <QRCodeSVG value="https://example.com" size={200} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
