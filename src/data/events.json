@@ -1,0 +1,58 @@
+[
+    {
+      "time_slot": "7:00 AM - 8:00 AM",
+      "event_name": "Registration & Breakfast",
+      "location": "Main Clubhouse",
+      "category": "Networking",
+      "priority": "High"
+    },
+    {
+      "time_slot": "8:00 AM - 8:30 AM",
+      "event_name": "Welcome & Opening Remarks",
+      "location": "Main Clubhouse",
+      "category": "General",
+      "priority": "Medium"
+    },
+    {
+      "time_slot": "8:30 AM - 9:00 AM",
+      "event_name": "Golf Clinic with Pro",
+      "location": "Driving Range",
+      "category": "Learning",
+      "priority": "Medium"
+    },
+    {
+      "time_slot": "9:00 AM - 12:00 PM",
+      "event_name": "9-Hole Scramble Tournament",
+      "location": "Golf Course (Front 9 Holes)",
+      "category": "Competitive",
+      "priority": "High"
+    },
+    {
+      "time_slot": "12:00 PM - 1:30 PM",
+      "event_name": "Lunch & Expo",
+      "location": "Clubhouse Lawn",
+      "category": "Networking",
+      "priority": "High"
+    },
+    {
+      "time_slot": "1:30 PM - 4:30 PM",
+      "event_name": "18-Hole Stroke Play Tournament",
+      "location": "Golf Course (Full 18 Holes)",
+      "category": "Competitive",
+      "priority": "High"
+    },
+    {
+      "time_slot": "4:30 PM - 5:00 PM",
+      "event_name": "Awards Ceremony & Closing Remarks",
+      "location": "Main Clubhouse",
+      "category": "General",
+      "priority": "Medium"
+    },
+    {
+      "time_slot": "5:00 PM - 6:00 PM",
+      "event_name": "Cocktail Reception",
+      "location": "Clubhouse Terrace",
+      "category": "Networking",
+      "priority": "High"
+    }
+  ]
