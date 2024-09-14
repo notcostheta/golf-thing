@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, MapPin, Users, Clock, Calendar } from 'lucide-react';
+import { ChevronDown, ChevronUp, MapPin, Users, Clock } from 'lucide-react';
 import eventsData from '../data/events.json';
 import { QRCodeSVG } from 'qrcode.react';
 
-const EventCard = ({ event, isExpanded, toggleExpand }) => {
+const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
   const startTime = event.time_slot ? event.time_slot.split(' - ')[0] : 'TBA';
 
   return (
     <div className="mb-4 border-2 border-black bg-white">
       <div 
-        className="flex justify-between items-center p-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200"
+        className="grid grid-cols-4 p-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200"
         onClick={toggleExpand}
       >
-        <div className="flex-grow">
+        <div className="col-span-3">
+          <div className={`text-xs text-gray-600 ${!isFirst ? 'hidden' : ''}`}>Event</div>
           <div className="text-lg font-bold text-black">{event.event_name || 'Unnamed Event'}</div>
         </div>
-        <div className="flex items-center">
-          <Clock size={16} className="text-gray-600 mr-1" />
-          <div className="text-lg font-bold text-black mr-2">{startTime}</div>
+        <div className="col-span-1 flex items-center justify-end">
+          <div className="flex flex-col items-end mr-2">
+            <div className={`text-xs text-gray-600 ${!isFirst ? 'hidden' : ''}`}>Start Time</div>
+            <div className="text-lg font-bold text-black">{startTime}</div>
+          </div>
           {isExpanded ? <ChevronUp size={24} className="text-black" /> : <ChevronDown size={24} className="text-black" />}
         </div>
       </div>
@@ -62,7 +65,7 @@ const EventSchedule = () => {
           
           <div className="flex-1 border-2 border-black p-3">
             <p className="flex items-center mb-2 text-gray-800">
-              <Calendar size={16} className="mr-2" /> June 15, 2023
+              <Clock size={16} className="mr-2" /> June 15, 2023
             </p>
             <p className="flex items-center text-gray-800">
               <MapPin size={16} className="mr-2" /> Pine Valley Golf Club
@@ -77,6 +80,7 @@ const EventSchedule = () => {
               event={event}
               isExpanded={expandedEvent === index}
               toggleExpand={() => toggleExpand(index)}
+              isFirst={index === 0}
             />
           ))}
         </div>
