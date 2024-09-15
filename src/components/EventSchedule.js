@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, MapPin, Users, Clock } from 'lucide-react';
+import { ChevronDown, ChevronUp, MapPin, Users, Clock, InfoIcon } from 'lucide-react';
 import eventsData from '../data/events.json';
 import { QRCodeSVG } from 'qrcode.react';
 
 const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
-  const startTime = event.time_slot ? event.time_slot.split(' - ')[0] : 'TBA';
-
   return (
     <div className="mb-4 flex">
       <div className="w-1/4 border-2 border-black bg-white mr-2">
         <div className="h-full flex flex-col justify-center items-center p-2">
           <div className={`text-xs text-gray-600 ${!isFirst ? 'hidden' : ''}`}>Start Time</div>
-          <div className="text-lg font-bold text-black">{startTime}</div>
+          <div className="text-lg font-bold text-black">{event.start_time}</div>
         </div>
       </div>
       <div className="w-3/4 border-2 border-black bg-white">
@@ -22,17 +20,29 @@ const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
           <div className="flex justify-between items-center">
             <div>
               <div className={`text-xs text-gray-600 ${!isFirst ? 'hidden' : ''}`}>Event</div>
-              <div className="text-lg font-bold text-black">{event.event_name || 'Unnamed Event'}</div>
+              <div className="text-lg font-bold text-black">{event.title}</div>
             </div>
             {isExpanded ? <ChevronUp size={24} className="text-black" /> : <ChevronDown size={24} className="text-black" />}
           </div>
         </div>
         <div className={`p-2 border-t-2 border-black ${isExpanded ? '' : 'hidden'}`}>
-          <p className="flex items-center mb-1 text-gray-800"><Clock size={16} className="mr-2" /> {event.time_slot || 'Time slot TBA'}</p>
-          <p className="flex items-center mb-1 text-gray-800"><MapPin size={16} className="mr-2" /> {event.location || 'Location TBA'}</p>
-          <p className="flex items-center mb-1 text-gray-800"><Users size={16} className="mr-2" /> {event.category || 'Category TBA'}</p>
-          {event.priority && (
-            <p className="text-sm text-gray-600">Priority: {event.priority}</p>
+          <p className="flex items-center mb-1 text-gray-800">
+            <Clock size={16} className="mr-2" /> 
+            {event.start_time} - {event.end_time} ({event.duration} min)
+          </p>
+          <p className="flex items-center mb-1 text-gray-800">
+            <Users size={16} className="mr-2" /> 
+            Host: {Array.isArray(event.host) ? event.host.join(', ') : event.host}
+          </p>
+          <p className="flex items-center mb-1 text-gray-800">
+            <MapPin size={16} className="mr-2" /> 
+            Location: {event.location}
+          </p>
+          {event.description && (
+            <p className="flex items-start mt-2 text-gray-800">
+              <InfoIcon size={16} className="mr-2 mt-1 flex-shrink-0" /> 
+              <span>{event.description}</span>
+            </p>
           )}
         </div>
       </div>
@@ -80,7 +90,7 @@ const EventSchedule = () => {
         <div className="border-t-2 border-black pt-4 mt-4">
           {eventsData.map((event, index) => (
             <EventCard
-              key={index}
+              key={event.event_id}
               event={event}
               isExpanded={expandedEvent === index}
               toggleExpand={() => toggleExpand(index)}
