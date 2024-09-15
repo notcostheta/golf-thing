@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp, MapPin, Users, Clock, InfoIcon } from 'lucide-react';
 import eventsData from '../data/events.json';
 import { QRCodeSVG } from 'qrcode.react';
@@ -53,6 +53,15 @@ const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
 const EventSchedule = () => {
   const [expandedEvent, setExpandedEvent] = useState(null);
   const [showQRCode, setShowQRCode] = useState(false);
+  const [sortedEvents, setSortedEvents] = useState([]);
+
+  useEffect(() => {
+    // Sort events by start_time
+    const sorted = [...eventsData].sort((a, b) => {
+      return new Date('1970/01/01 ' + a.start_time) - new Date('1970/01/01 ' + b.start_time);
+    });
+    setSortedEvents(sorted);
+  }, []);
 
   const toggleExpand = (index) => {
     setExpandedEvent(expandedEvent === index ? null : index);
@@ -88,7 +97,7 @@ const EventSchedule = () => {
         </div>
         
         <div className="border-t-2 border-black pt-4 mt-4">
-          {eventsData.map((event, index) => (
+          {sortedEvents.map((event, index) => (
             <EventCard
               key={event.event_id}
               event={event}
