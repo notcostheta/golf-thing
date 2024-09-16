@@ -1,112 +1,134 @@
 [
-  {
-      "event_id": "E001",
-      "title": "Golf Tournament",
-      "start_time": "9:00 AM",
-      "end_time": "12:00 PM",
-      "duration": 180,
-      "host": ["Tiger Woods", "Lee Trevino"],
-      "location": "Pine Valley Golf Course",
-      "categories": ["Golf", "Social"],
-      "description": "Join Tiger Woods and other golf enthusiasts for a thrilling golf tournament. Test your skills on the green and enjoy the camaraderie of fellow golfers."
-  },
-  {
-      "event_id": "E002",
-      "title": "Networking Lunch",
-      "start_time": "12:00 PM",
-      "end_time": "2:00 PM",
-      "duration": 120,
-      "host": ["John Smith"],
-      "location": "Grand Ballroom",
-      "categories": ["Networking"],
-      "description": "Network with industry professionals over a delicious lunch. This is a great opportunity to make new connections and discuss business opportunities."
-  },
-  {
-      "event_id": "E003",
-      "title": "Golf Clinic",
-      "start_time": "1:00 PM",
-      "end_time": "3:00 PM",
-      "duration": 120,
-      "host": ["Phil Mickelson"],
-      "location": "Pine Valley Golf Course",
-      "categories": ["Golf"],
-      "description": "Learn from the legendary Phil Mickelson in a hands-on golf clinic. Improve your swing, putt, and overall game with personalized tips and techniques."
-  },
-  {
-      "event_id": "E004",
-      "title": "Brainstorming Session",
-      "start_time": "2:00 PM",
-      "end_time": "3:45 PM",
-      "duration": 105,
-      "host": ["Jane Doe", "John Smith"],
-      "location": "Innovation Hub",
-      "categories": ["Educational", "Networking"],
-      "description": "Join a dynamic discussion on innovative ideas and solutions. This session will help you brainstorm and collaborate with other attendees."
-  },
-  {
-      "event_id": "E005",
-      "title": "Early Morning Yoga",
-      "start_time": "7:00 AM",
-      "end_time": "8:00 AM",
-      "duration": 60,
-      "host": ["Sarah Johnson"],
-      "location": "Zen Garden",
-      "categories": ["Wellness"],
-      "description": "Start your day with a refreshing yoga session led by Sarah Johnson. This session will help you relax and prepare for a day full of activities."
-  },
-  {
-      "event_id": "E006",
-      "title": "Late Afternoon Golf Match",
-      "start_time": "4:00 PM",
-      "end_time": "6:00 PM",
-      "duration": 120,
-      "host": ["Rory McIlroy"],
-      "location": "Pine Valley Golf Course",
-      "categories": ["Golf"],
-      "description": "Participate in a friendly golf match hosted by Rory McIlroy. This is a great way to enjoy the game and compete in a relaxed atmosphere."
-  },
-  {
-      "event_id": "E007",
-      "title": "Morning Coffee Meetup",
-      "start_time": "8:30 AM",
-      "end_time": "9:30 AM",
-      "duration": 60,
-      "host": ["Emily Davis"],
-      "location": "Lobby Cafe",
-      "categories": ["Networking"],
-      "description": "Start your day with a casual coffee meetup. This is a great opportunity to network in a relaxed setting before the main events begin."
-  },
-  {
-      "event_id": "E008",
-      "title": "Midday Wellness Workshop",
-      "start_time": "1:00 PM",
-      "end_time": "3:00 PM",
-      "duration": 120,
-      "host": ["Sarah Johnson"],
-      "location": "Wellness Center",
-      "categories": ["Wellness"],
-      "description": "Join Sarah Johnson for a midday wellness workshop. Learn relaxation techniques and mindfulness practices to keep you energized throughout the day."
-  },
-  {
-      "event_id": "E009",
-      "title": "Late Afternoon Networking Session",
-      "start_time": "5:00 PM",
-      "end_time": "7:00 PM",
-      "duration": 120,
-      "host": ["John Smith"],
-      "location": "Executive Lounge",
-      "categories": ["Networking"],
-      "description": "Network with industry professionals in a late afternoon session. This is a great opportunity to discuss business opportunities and make new connections."
-  },
-  {
-      "event_id": "E010",
-      "title": "Tech Showcase",
-      "start_time": "1:00 PM",
-      "end_time": "3:00 PM",
-      "duration": 120,
-      "host": ["TechCorp"],
-      "location": "Innovation Hub",
-      "categories": ["Promotional"],
-      "description": "Explore the latest tech gadgets and innovations from TechCorp. Participate in interactive demos and win exciting giveaways."
-  }
-]
+    {
+      "date": "2023-06-15",
+      "events": [
+        {
+          "event_id": "E001",
+          "title": "Golf Tournament",
+          "start_time": "09:00",
+          "end_time": "12:00",
+          "duration": 180,
+          "host": ["Tiger Woods", "Lee Trevino"],
+          "location": "Pine Valley Golf Course",
+          "categories": ["Golf", "Social"],
+          "description": "Join Tiger Woods and other golf enthusiasts for a thrilling golf tournament. Test your skills on the green and enjoy the camaraderie of fellow golfers."
+        },
+        {
+          "event_id": "E002",
+          "title": "Networking Lunch",
+          "start_time": "12:00",
+          "end_time": "14:00",
+          "duration": 120,
+          "host": ["John Smith"],
+          "location": "Grand Ballroom",
+          "categories": ["Networking"],
+          "description": "Network with industry professionals over a delicious lunch. This is a great opportunity to make new connections and discuss business opportunities."
+        },
+        {
+          "event_id": "E003",
+          "title": "Golf Clinic",
+          "start_time": "13:00",
+          "end_time": "15:00",
+          "duration": 120,
+          "host": ["Phil Mickelson"],
+          "location": "Pine Valley Golf Course",
+          "categories": ["Golf"],
+          "description": "Learn from the legendary Phil Mickelson in a hands-on golf clinic. Improve your swing, putt, and overall game with personalized tips and techniques."
+        },
+        {
+          "event_id": "E004",
+          "title": "Brainstorming Session",
+          "start_time": "14:00",
+          "end_time": "15:45",
+          "duration": 105,
+          "host": ["Jane Doe", "John Smith"],
+          "location": "Innovation Hub",
+          "categories": ["Educational", "Networking"],
+          "description": "Join a dynamic discussion on innovative ideas and solutions. This session will help you brainstorm and collaborate with other attendees."
+        },
+        {
+          "event_id": "E005",
+          "title": "Early Morning Yoga",
+          "start_time": "07:00",
+          "end_time": "08:00",
+          "duration": 60,
+          "host": ["Sarah Johnson"],
+          "location": "Zen Garden",
+          "categories": ["Wellness"],
+          "description": "Start your day with a refreshing yoga session led by Sarah Johnson. This session will help you relax and prepare for a day full of activities."
+        },
+        {
+          "event_id": "E006",
+          "title": "Late Afternoon Golf Match",
+          "start_time": "16:00",
+          "end_time": "18:00",
+          "duration": 120,
+          "host": ["Rory McIlroy"],
+          "location": "Pine Valley Golf Course",
+          "categories": ["Golf"],
+          "description": "Participate in a friendly golf match hosted by Rory McIlroy. This is a great way to enjoy the game and compete in a relaxed atmosphere."
+        },
+        {
+          "event_id": "E007",
+          "title": "Morning Coffee Meetup",
+          "start_time": "08:30",
+          "end_time": "09:30",
+          "duration": 60,
+          "host": ["Emily Davis"],
+          "location": "Lobby Cafe",
+          "categories": ["Networking"],
+          "description": "Start your day with a casual coffee meetup. This is a great opportunity to network in a relaxed setting before the main events begin."
+        },
+        {
+          "event_id": "E008",
+          "title": "Midday Wellness Workshop",
+          "start_time": "13:00",
+          "end_time": "15:00",
+          "duration": 120,
+          "host": ["Sarah Johnson"],
+          "location": "Wellness Center",
+          "categories": ["Wellness"],
+          "description": "Join Sarah Johnson for a midday wellness workshop. Learn relaxation techniques and mindfulness practices to keep you energized throughout the day."
+        },
+        {
+          "event_id": "E009",
+          "title": "Late Afternoon Networking Session",
+          "start_time": "17:00",
+          "end_time": "19:00",
+          "duration": 120,
+          "host": ["John Smith"],
+          "location": "Executive Lounge",
+          "categories": ["Networking"],
+          "description": "Network with industry professionals in a late afternoon session. This is a great opportunity to discuss business opportunities and make new connections."
+        },
+        {
+          "event_id": "E010",
+          "title": "Tech Showcase",
+          "start_time": "13:00",
+          "end_time": "15:00",
+          "duration": 120,
+          "host": ["TechCorp"],
+          "location": "Innovation Hub",
+          "categories": ["Promotional"],
+          "description": "Explore the latest tech gadgets and innovations from TechCorp. Participate in interactive demos and win exciting giveaways."
+        }
+      ]
+    },
+    {
+      "date": "2023-06-16",
+      "events": [
+        {
+          "event_id": "E101",
+          "title": "Networking Breakfast",
+          "start_time": "08:00",
+          "end_time": "09:30",
+          "duration": 90,
+          "host": ["John Smith"],
+          "location": "Grand Ballroom",
+          "categories": ["Networking"],
+          "description": "Start your day with a networking breakfast. Meet and greet with industry professionals over a delicious morning meal."
+        }
+
+      ]
+    }
+  ]

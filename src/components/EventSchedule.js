@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, ChevronUp, MapPin, Users, Clock, InfoIcon } from 'lucide-react';
-import eventsData from '../data/events.json';
+import { ChevronDown, ChevronUp, MapPin, Users, Clock, InfoIcon, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
+import eventsData from '../data/events.json';
 
 const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
   return (
@@ -50,25 +50,54 @@ const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
   );
 };
 
-const EventSchedule = () => {
+const DaySchedule = ({ dayData }) => {
   const [expandedEvent, setExpandedEvent] = useState(null);
-  const [showQRCode, setShowQRCode] = useState(false);
-  const [sortedEvents, setSortedEvents] = useState([]);
-
-  useEffect(() => {
-    // Sort events by start_time
-    const sorted = [...eventsData].sort((a, b) => {
-      return new Date('1970/01/01 ' + a.start_time) - new Date('1970/01/01 ' + b.start_time);
-    });
-    setSortedEvents(sorted);
-  }, []);
 
   const toggleExpand = (index) => {
     setExpandedEvent(expandedEvent === index ? null : index);
   };
 
+  return (
+    <div className="mb-8">
+      {dayData.events.map((event, index) => (
+        <EventCard
+          key={event.event_id}
+          event={event}
+          isExpanded={expandedEvent === index}
+          toggleExpand={() => toggleExpand(index)}
+          isFirst={index === 0}
+        />
+      ))}
+    </div>
+  );
+};
+
+const EventSchedule = () => {
+  const [showQRCode, setShowQRCode] = useState(false);
+  const [sortedData, setSortedData] = useState([]);
+  const [currentDayIndex, setCurrentDayIndex] = useState(0);
+
+  useEffect(() => {
+    // Sort days and events within each day
+    const sorted = [...eventsData].sort((a, b) => new Date(a.date) - new Date(b.date));
+    sorted.forEach(day => {
+      day.events.sort((a, b) => {
+        return new Date('1970/01/01 ' + a.start_time) - new Date('1970/01/01 ' + b.start_time);
+      });
+    });
+    setSortedData(sorted);
+  }, []);
+
   const toggleQRCode = () => {
     setShowQRCode(!showQRCode);
+  };
+
+  const goToPreviousDay = () => {
+    setCurrentDayIndex((prevIndex) => Math.max(0, prevIndex - 1));
+  };
+
+  const goToNextDay = () => {
+    setCurrentDayIndex((prevIndex) => Math.min(sortedData.length - 1, prevIndex + 1));
   };
 
   return (
@@ -76,7 +105,7 @@ const EventSchedule = () => {
       <div className="border-2 border-black p-4 bg-white shadow-lg">
         <div className="mb-4">
           <h1 className="text-2xl md:text-4xl font-bold mb-2 text-black">GOLFFEST 2023</h1>
-          <p className="text-lg md:text-xl mb-4 text-gray-700">A Day of Golf, Networking, and Fun</p>
+          <p className="text-lg md:text-xl mb-4 text-gray-700">A Multi-Day Golf, Networking, and Fun Event</p>
         </div>
         
         <div className="flex flex-row space-x-4 mb-4">
@@ -88,7 +117,7 @@ const EventSchedule = () => {
           
           <div className="flex-1 border-2 border-black p-3">
             <p className="flex items-center mb-2 text-gray-800">
-              <Clock size={16} className="mr-2" /> June 15, 2023
+              <Calendar size={16} className="mr-2" /> {sortedData.length > 0 ? `${new Date(sortedData[0].date).toLocaleDateString()} - ${new Date(sortedData[sortedData.length - 1].date).toLocaleDateString()}` : 'Loading...'}
             </p>
             <p className="flex items-center text-gray-800">
               <MapPin size={16} className="mr-2" /> Pine Valley Golf Club
@@ -96,16 +125,31 @@ const EventSchedule = () => {
           </div>
         </div>
         
+        {/* Mini Navbar for Date Navigation */}
+        <div className="flex justify-between items-center mb-4 border-2 border-black p-2">
+          <button 
+            onClick={goToPreviousDay} 
+            disabled={currentDayIndex === 0}
+            className="p-2 disabled:opacity-50"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <span className="font-bold text-xl">
+            {sortedData[currentDayIndex] ? new Date(sortedData[currentDayIndex].date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : 'Loading...'}
+          </span>
+          <button 
+            onClick={goToNextDay} 
+            disabled={currentDayIndex === sortedData.length - 1}
+            className="p-2 disabled:opacity-50"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
+        
         <div className="border-t-2 border-black pt-4 mt-4">
-          {sortedEvents.map((event, index) => (
-            <EventCard
-              key={event.event_id}
-              event={event}
-              isExpanded={expandedEvent === index}
-              toggleExpand={() => toggleExpand(index)}
-              isFirst={index === 0}
-            />
-          ))}
+          {sortedData[currentDayIndex] && (
+            <DaySchedule dayData={sortedData[currentDayIndex]} />
+          )}
         </div>
       </div>
       {showQRCode && (
