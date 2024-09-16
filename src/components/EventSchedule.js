@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { ChevronDown, ChevronUp, MapPin, Users, Clock, InfoIcon, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
-import eventsData from '../data/events.json';
 
 const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
   return (
@@ -78,14 +78,22 @@ const EventSchedule = () => {
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
   useEffect(() => {
-    // Sort days and events within each day
-    const sorted = [...eventsData].sort((a, b) => new Date(a.date) - new Date(b.date));
-    sorted.forEach(day => {
-      day.events.sort((a, b) => {
-        return new Date('1970/01/01 ' + a.start_time) - new Date('1970/01/01 ' + b.start_time);
-      });
-    });
-    setSortedData(sorted);
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/events');
+        const sorted = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+        sorted.forEach(day => {
+          day.events.sort((a, b) => {
+            return new Date('1970/01/01 ' + a.start_time) - new Date('1970/01/01 ' + b.start_time);
+          });
+        });
+        setSortedData(sorted);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
   }, []);
 
   const toggleQRCode = () => {
