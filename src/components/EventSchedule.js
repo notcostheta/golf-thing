@@ -13,7 +13,7 @@ const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
         </div>
       </div>
       <div className="w-3/4 border-2 border-black bg-white">
-        <div 
+        <div
           className="p-2 cursor-pointer hover:bg-gray-100 transition-colors duration-200"
           onClick={toggleExpand}
         >
@@ -27,20 +27,20 @@ const EventCard = ({ event, isExpanded, toggleExpand, isFirst }) => {
         </div>
         <div className={`p-2 border-t-2 border-black ${isExpanded ? '' : 'hidden'}`}>
           <p className="flex items-center mb-1 text-gray-800">
-            <Clock size={16} className="mr-2" /> 
+            <Clock size={16} className="mr-2" />
             {event.start_time} - {event.end_time} ({event.duration} min)
           </p>
           <p className="flex items-center mb-1 text-gray-800">
-            <Users size={16} className="mr-2" /> 
-            Host: {Array.isArray(event.host) ? event.host.join(', ') : event.host}
+            <Users size={16} className="mr-2" />
+            Host: {event.host || 'N/A'}
           </p>
           <p className="flex items-center mb-1 text-gray-800">
-            <MapPin size={16} className="mr-2" /> 
+            <MapPin size={16} className="mr-2" />
             Location: {event.location}
           </p>
           {event.description && (
             <p className="flex items-start mt-2 text-gray-800">
-              <InfoIcon size={16} className="mr-2 mt-1 flex-shrink-0" /> 
+              <InfoIcon size={16} className="mr-2 mt-1 flex-shrink-0" />
               <span>{event.description}</span>
             </p>
           )}
@@ -59,7 +59,7 @@ const DaySchedule = ({ dayData }) => {
 
   return (
     <div className="mb-8">
-      {dayData.events.map((event, index) => (
+      {dayData.map((event, index) => (
         <EventCard
           key={event.event_id}
           event={event}
@@ -81,13 +81,21 @@ const EventSchedule = () => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get('http://localhost:8000/events');
-        const sorted = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
-        sorted.forEach(day => {
-          day.events.sort((a, b) => {
-            return new Date('1970/01/01 ' + a.start_time) - new Date('1970/01/01 ' + b.start_time);
-          });
+        const events = response.data.events;
+        const groupedByDate = events.reduce((acc, event) => {
+          const date = event.date;
+          if (!acc[date]) {
+            acc[date] = [];
+          }
+          acc[date].push(event);
+          return acc;
+        }, {});
+        const sortedDates = Object.keys(groupedByDate).sort((a, b) => new Date(a) - new Date(b));
+        const sortedEvents = sortedDates.map(date => {
+          const events = groupedByDate[date].sort((a, b) => new Date('1970/01/01 ' + a.start_time) - new Date('1970/01/01 ' + b.start_time));
+          return { date, events };
         });
-        setSortedData(sorted);
+        setSortedData(sortedEvents);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -115,14 +123,14 @@ const EventSchedule = () => {
           <h1 className="text-2xl md:text-4xl font-bold mb-2 text-black">GOLFFEST 2023</h1>
           <p className="text-lg md:text-xl mb-4 text-gray-700">A Multi-Day Golf, Networking, and Fun Event</p>
         </div>
-        
+
         <div className="flex flex-row space-x-4 mb-4">
           <div className="flex-1 border-2 border-black p-3">
             <div className="flex justify-center items-center cursor-pointer" onClick={toggleQRCode}>
               <QRCodeSVG value="https://example.com" size={80} />
             </div>
           </div>
-          
+
           <div className="flex-1 border-2 border-black p-3">
             <p className="flex items-center mb-2 text-gray-800">
               <Calendar size={16} className="mr-2" /> {sortedData.length > 0 ? `${new Date(sortedData[0].date).toLocaleDateString()} - ${new Date(sortedData[sortedData.length - 1].date).toLocaleDateString()}` : 'Loading...'}
@@ -132,11 +140,11 @@ const EventSchedule = () => {
             </p>
           </div>
         </div>
-        
+
         {/* Mini Navbar for Date Navigation */}
         <div className="flex justify-between items-center mb-4 border-2 border-black p-2">
-          <button 
-            onClick={goToPreviousDay} 
+          <button
+            onClick={goToPreviousDay}
             disabled={currentDayIndex === 0}
             className="p-2 disabled:opacity-50"
           >
@@ -145,23 +153,23 @@ const EventSchedule = () => {
           <span className="font-bold text-xl">
             {sortedData[currentDayIndex] ? new Date(sortedData[currentDayIndex].date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : 'Loading...'}
           </span>
-          <button 
-            onClick={goToNextDay} 
+          <button
+            onClick={goToNextDay}
             disabled={currentDayIndex === sortedData.length - 1}
             className="p-2 disabled:opacity-50"
           >
             <ChevronRight size={24} />
           </button>
         </div>
-        
+
         <div className="border-t-2 border-black pt-4 mt-4">
           {sortedData[currentDayIndex] && (
-            <DaySchedule dayData={sortedData[currentDayIndex]} />
+            <DaySchedule dayData={sortedData[currentDayIndex].events} />
           )}
         </div>
       </div>
       {showQRCode && (
-        <div 
+        <div
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
           onClick={toggleQRCode}
         >
