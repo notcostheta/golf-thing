@@ -1,8 +1,9 @@
+import json
+import dateparser
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
-import json
 from datetime import datetime
 from models import Event, EventItinerary
 
@@ -25,7 +26,7 @@ app.add_middleware(
 
 # Helper function to parse custom date format
 def parse_custom_date(date_string):
-    return datetime.strptime(date_string, "%d %B %Y").strftime("%Y-%m-%d")
+    return dateparser.parse(date_string).strftime("%Y-%m-%d")
 
 
 # Load events data
@@ -36,10 +37,10 @@ with open("data/events.json", "r") as f:
 for event in events_data["events"]:
     event["date"] = parse_custom_date(
         event["date"]
-        .replace("th ", " ")
-        .replace("st ", " ")
-        .replace("nd ", " ")
-        .replace("rd ", " ")
+        # .replace("th ", " ")
+        # .replace("st ", " ")
+        # .replace("nd ", " ")
+        # .replace("rd ", " ")
     )
 
 # Sort events by date
