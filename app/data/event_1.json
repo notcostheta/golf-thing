@@ -1,0 +1,213 @@
+{
+    "status": "success",
+    "data": {
+        "events": [
+            {
+                "event_id": "E001",
+                "date": "",
+                "title": "Welcome and Music",
+                "start_time": "8:30",
+                "end_time": "8:50",
+                "duration": 20,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Welcome",
+                    "Music",
+                    "Spiritual Gathering"
+                ],
+                "description": "Welcome and introductory music for the one-day event."
+            },
+            {
+                "event_id": "E002",
+                "date": "",
+                "title": "Session 1: Finding Purpose in Your Life",
+                "start_time": "8:50",
+                "end_time": "9:40",
+                "duration": 50,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Spiritual Guidance",
+                    "Personal Development",
+                    "Life Purpose"
+                ],
+                "description": "A session focused on finding purpose in one's life."
+            },
+            {
+                "event_id": "E003",
+                "date": "",
+                "title": "Small Group Discussion #1",
+                "start_time": "9:40",
+                "end_time": "10:00",
+                "duration": 20,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Group Discussion",
+                    "Spiritual Growth",
+                    "Community Building"
+                ],
+                "description": "A small group discussion following Session 1."
+            },
+            {
+                "event_id": "E004",
+                "date": "",
+                "title": "Session 2: Finding Respect and Honor at Home",
+                "start_time": "10:10",
+                "end_time": "11:00",
+                "duration": 50,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Family Relationships",
+                    "Respect",
+                    "Honor"
+                ],
+                "description": "A session focused on finding respect and honor at home."
+            },
+            {
+                "event_id": "E005",
+                "date": "",
+                "title": "Small Group Discussion #2",
+                "start_time": "11:00",
+                "end_time": "11:20",
+                "duration": 20,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Group Discussion",
+                    "Family Dynamics",
+                    "Personal Growth"
+                ],
+                "description": "A small group discussion following Session 2."
+            },
+            {
+                "event_id": "E006",
+                "date": "",
+                "title": "Gather/Pray",
+                "start_time": "11:20",
+                "end_time": "11:25",
+                "duration": 5,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Prayer",
+                    "Spiritual Reflection"
+                ],
+                "description": "A brief gathering for prayer."
+            },
+            {
+                "event_id": "E007",
+                "date": "",
+                "title": "Lunch / Faculty meets with Follow-Up Group Leaders",
+                "start_time": "11:25",
+                "end_time": "12:15",
+                "duration": 50,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Networking",
+                    "Community Building",
+                    "Leadership"
+                ],
+                "description": "A lunch break with faculty meeting with follow-up group leaders."
+            },
+            {
+                "event_id": "E008",
+                "date": "",
+                "title": "Gather/Music (one song)",
+                "start_time": "12:15",
+                "end_time": "12:30",
+                "duration": 15,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Music",
+                    "Spiritual Gathering"
+                ],
+                "description": "A brief gathering with music."
+            },
+            {
+                "event_id": "E009",
+                "date": "",
+                "title": "Session 3: Finding a New Best Friend in Your Wife",
+                "start_time": "12:30",
+                "end_time": "1:20",
+                "duration": 50,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Marriage",
+                    "Relationships",
+                    "Personal Growth"
+                ],
+                "description": "A session focused on finding a new best friend in one's wife."
+            },
+            {
+                "event_id": "E010",
+                "date": "",
+                "title": "Formation of six-week follow-up groups and discussion #3",
+                "start_time": "1:20",
+                "end_time": "2:00",
+                "duration": 40,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Community Building",
+                    "Group Discussion",
+                    "Personal Growth"
+                ],
+                "description": "Formation of six-week follow-up groups and a group discussion."
+            },
+            {
+                "event_id": "E011",
+                "date": "",
+                "title": "Session 4: Finding a Deeper Relationship with God",
+                "start_time": "2:00",
+                "end_time": "2:50",
+                "duration": 50,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Spiritual Growth",
+                    "Personal Development",
+                    "Faith"
+                ],
+                "description": "A session focused on finding a deeper relationship with God."
+            },
+            {
+                "event_id": "E012",
+                "date": "",
+                "title": "Small Group Discussion #4",
+                "start_time": "2:50",
+                "end_time": "3:10",
+                "duration": 20,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Group Discussion",
+                    "Spiritual Reflection",
+                    "Community Building"
+                ],
+                "description": "A small group discussion following Session 4."
+            },
+            {
+                "event_id": "E013",
+                "date": "",
+                "title": "Wrap-Up/Music/Close",
+                "start_time": "3:10",
+                "end_time": "3:20",
+                "duration": 10,
+                "host": [],
+                "location": "",
+                "categories": [
+                    "Closing",
+                    "Music",
+                    "Spiritual Gathering"
+                ],
+                "description": "A brief closing with music."
+            }
+        ]
+    }
+}
