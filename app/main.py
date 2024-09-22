@@ -8,9 +8,7 @@ from datetime import datetime
 from models import Event, EventItinerary, validate_json
 from groq_client import get_groq_response, get_json_response
 from prompts import base, condensed
-import re
-from PyPDF2 import PdfReader
-from io import BytesIO
+from pdf_extractor import extract_text_from_pdf
 
 app = FastAPI()
 
@@ -77,14 +75,7 @@ async def upload_pdf(file: UploadFile = File(...)):
     try:
         # Read the uploaded PDF file
         pdf_content = await file.read()
-        pdf_stream = BytesIO(pdf_content)
-        reader = PdfReader(pdf_stream)
-        text = ""
-        for page in reader.pages:
-            text += page.extract_text()
-
-        # Replace unpaired surrogates with a placeholder
-        text = re.sub(r"[\ud800-\udfff]", "�", text)
+        text = extract_text_from_pdf(pdf_content)
 
         # Process the extracted text using Groq API
         resp = get_groq_response(
@@ -99,26 +90,45 @@ async def upload_pdf(file: UploadFile = File(...)):
 
         thing_content = resp.choices[0].message.content
 
-        json_thing = get_json_response(
-            model="llama-3.1-70b-versatile",
-            messages=[
-                {"role": "system", "content": base},
-                {"role": "user", "content": thing_content},
-            ],
-            response_format={"type": "json_object"},
-            temperature=0,
-            max_tokens=8000,
-        )
+        # Retry validation up to 3 times
+        max_retries = 3
+        errors = []
+        for attempt in range(max_retries):
+            try:
+                json_thing = get_json_response(
+                    model="llama-3.1-70b-versatile",
+                    messages=[
+                        {"role": "system", "content": base},
+                        {"role": "user", "content": thing_content},
+                    ],
+                    response_format={"type": "json_object"},
+                    temperature=0,
+                    max_tokens=8000,
+                )
 
-        json_thing_content = json.loads(json_thing.choices[0].message.content)
+                json_thing_content = json.loads(json_thing.choices[0].message.content)
 
-        # Validate the JSON data
-        validated_itinerary = validate_json(json_thing_content)
-
-        if validated_itinerary:
-            return {"status": "success", "data": validated_itinerary.dict()}
-        else:
-            return {"status": "error", "message": "Validation failed"}
+                validated_itinerary = validate_json(json_thing_content)
+                if validated_itinerary:
+                    return {
+                        "status": "success",
+                        "thing_content": thing_content,
+                        "json_thing_content": validated_itinerary.dict(),
+                    }
+            except Exception as e:
+                errors.append(str(e))
+                # Modify the messages list to include the error
+                thing_content += f"\nError: {str(e)}"
+                if attempt < max_retries - 1:
+                    continue
+                else:
+                    return {
+                        "status": "error",
+                        "message": "Validation failed after multiple attempts",
+                        "thing_content": thing_content,
+                        "json_thing_content": json_thing_content,
+                        "errors": errors,
+                    }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
